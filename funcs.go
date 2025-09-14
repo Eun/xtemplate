@@ -15,6 +15,7 @@ import (
 
 //go:generate go run generate_funcs.go
 //go:generate go run generate_examples.go
+//go:generate go run generate_readme.go
 
 type rootContext struct {
 	template           *template.Template

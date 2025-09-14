@@ -281,6 +281,8 @@ func (ctx Slice) Sort(s any) (any, error) {
 //
 //	{{ $sl := slice.NewStrings "Joe" }}
 //	{{ slice.Append $sl "Alice" "Bob" }} // Output: [Joe Alice Bob]
+//
+//nolint:cyclop, funlen // cannot be simplified
 func (ctx Slice) Append(s any, vals ...any) (any, error) {
 	if _, ok := ctx.allowedFunctionSet[funcs.SliceAppend]; !ok {
 		return nil, &FuncNotAllowedError{Func: funcs.SliceAppend}
@@ -368,6 +370,8 @@ func (ctx Slice) Append(s any, vals ...any) (any, error) {
 //
 //	{{ $sl := slice.NewStrings "Joe" }}
 //	{{ slice.Prepend $sl "Alice" "Bob" }} // Output: [Alice Bob Joe]
+//
+//nolint:cyclop, funlen // cannot be simplified
 func (ctx Slice) Prepend(s any, vals ...any) (any, error) {
 	if _, ok := ctx.allowedFunctionSet[funcs.SlicePrepend]; !ok {
 		return nil, &FuncNotAllowedError{Func: funcs.SlicePrepend}
@@ -455,6 +459,8 @@ func (ctx Slice) Prepend(s any, vals ...any) (any, error) {
 //
 //	{{ $sl := slice.NewStrings "Hello" "World" }}
 //	{{ slice.Len $sl }} // Output: 2
+//
+//nolint:cyclop // cannot be simplified
 func (ctx Slice) Len(s any) (int, error) {
 	if _, ok := ctx.allowedFunctionSet[funcs.SliceLen]; !ok {
 		return 0, &FuncNotAllowedError{Func: funcs.SliceLen}
@@ -508,6 +514,8 @@ func uniqSlice[T comparable](sl []T) []T {
 // Example:
 //
 //	{{ slice.Unique ( slice.NewStrings "Hello" "World" "Hello" ) }} // Output: [Hello World]
+//
+//nolint:cyclop // cannot be simplified
 func (ctx Slice) Unique(s any) (any, error) {
 	if _, ok := ctx.allowedFunctionSet[funcs.SliceUnique]; !ok {
 		return nil, &FuncNotAllowedError{Func: funcs.SliceUnique}
@@ -551,6 +559,8 @@ func (ctx Slice) Unique(s any) (any, error) {
 // Example:
 //
 //	{{ slice.Compact ( slice.NewStrings "Hello" "Hello" "World" "World" ) }} // Output: [Hello World]
+//
+//nolint:cyclop // cannot be simplified
 func (ctx Slice) Compact(s any) (any, error) {
 	if _, ok := ctx.allowedFunctionSet[funcs.SliceCompact]; !ok {
 		return nil, &FuncNotAllowedError{Func: funcs.SliceCompact}

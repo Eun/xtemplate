@@ -144,21 +144,7 @@ if err != nil {
 }
 ```
 
-## API Reference
-
-### Core Functions
-
-- `FuncMap(t *template.Template, allowedFunctions ...AllowedFunctions) template.FuncMap`
-- `Execute(t *template.Template, wr io.Writer, data any) error`
-- `ExecuteTemplate(t *template.Template, wr io.Writer, name string, data any) error`
-- `QuickExecute(tmplStr string, data any, allowedFunctions ...AllowedFunctions) (string, error)`
-
-### Error Types
-
-- `FuncNotAllowedError` - Returned when a disallowed function is called
-- `ReturnError` - Used internally for the `return` function
-
-### Complete Function List
+## Complete Function List
 See the [GoDoc](https://pkg.go.dev/github.com/Eun/xtemplate) for a complete list of available functions and their descriptions.
 
 ## Contributing
