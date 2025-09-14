@@ -140,6 +140,11 @@ func generateFuncs(set map[string]map[string]struct{}) error {
 			})
 		}
 
+		// Sort methods for consistent output
+		sort.Slice(col.Methods, func(i, j int) bool {
+			return col.Methods[i].Context+col.Methods[i].Method < col.Methods[j].Context+col.Methods[j].Method
+		})
+
 		collections = append(collections, col)
 		methods = append(methods, col.Methods...)
 	}
@@ -170,6 +175,7 @@ func generateFuncs(set map[string]map[string]struct{}) error {
 	fmt.Fprintln(outFile, "var (")
 	for _, collection := range collections {
 		fmt.Fprintf(outFile, "\t%s = Funcs {\n", collection.Context)
+
 		for _, method := range collection.Methods {
 			fmt.Fprintf(outFile, "\t\t%s,\n", method.Context+method.Method)
 		}
