@@ -46,6 +46,7 @@ var (
 	FilePathFromSlash = Func { "filepath", "FromSlash" }
 	FilePathJoin = Func { "filepath", "Join" }
 	FilePathRel = Func { "filepath", "Rel" }
+	FilePathToSlash = Func { "filepath", "ToSlash" }
 	JSONCompact = Func { "json", "Compact" }
 	JSONHTMLEscape = Func { "json", "HTMLEscape" }
 	JSONIndent = Func { "json", "Indent" }
@@ -234,6 +235,7 @@ var (
 		FilePathFromSlash,
 		FilePathJoin,
 		FilePathRel,
+		FilePathToSlash,
 	}
 
 	JSON = Funcs {
@@ -436,6 +438,7 @@ var (
 		FilePathFromSlash,
 		FilePathJoin,
 		FilePathRel,
+		FilePathToSlash,
 		JSONCompact,
 		JSONHTMLEscape,
 		JSONIndent,
@@ -621,6 +624,7 @@ var NamespacesAndTheirFunctions = map[string]map[string]struct{}{
 		"FromSlash": {},
 		"Join": {},
 		"Rel": {},
+		"ToSlash": {},
 	},
 	"json": {
 		"Compact": {},

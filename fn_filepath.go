@@ -112,3 +112,16 @@ func (ctx FilePath) FromSlash(path string) (string, error) {
 	}
 	return filepath.FromSlash(path), nil
 }
+
+// ToSlash returns the result of replacing each separator character in path with a slash ('/') character.
+// Multiple separators are replaced by multiple slashes. The result is not Cleaned.
+//
+// Example:
+//
+//	{{ filepath.ToSlash "foo\bar\baz" }}
+func (ctx FilePath) ToSlash(path string) (string, error) {
+	if _, ok := ctx.allowedFunctionSet[funcs.FilePathToSlash]; !ok {
+		return "", &FuncNotAllowedError{Func: funcs.FilePathToSlash}
+	}
+	return filepath.ToSlash(path), nil
+}

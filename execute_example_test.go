@@ -23,10 +23,10 @@ func ExampleQuickExecute() {
 
 func ExampleQuickExecute_second() {
 	s, _ := xtemplate.QuickExecute(
-		"{{filepath.Join ( os.Getenv \"HOME\" ) .file}}",
+		"{{filepath.ToSlash (filepath.Join (os.Getenv \"HOME\") .file)}}",
 		map[string]any{"file": ".bashrc"},
 		funcs.Safe,     // Allow all safe functions
 		funcs.OSGetenv, // Allow only the os.Getenv function
 	)
-	fmt.Println(s)
+	fmt.Println(s) // Output: /root/.bashrc
 }

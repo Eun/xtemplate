@@ -14,7 +14,7 @@ func init() {
 
 func Example_second() {
 	result, err := xtemplate.QuickExecute(
-		"{{filepath.Join (os.Getenv \"HOME\") .file}}",
+		"{{ filepath.ToSlash ( filepath.Join ( os.Getenv \"HOME\" ) .file ) }}",
 		map[string]any{"file": ".bashrc"},
 		funcs.Safe,     // Safe functions
 		funcs.OSGetenv, // Additional OS function
@@ -22,5 +22,5 @@ func Example_second() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(result)
+	fmt.Println(result) // Output: /root/.bashrc
 }
