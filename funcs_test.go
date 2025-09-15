@@ -60,6 +60,16 @@ func TestCommonUseCases(t *testing.T) {
 			want:    "Hello world",
 			wantErr: false,
 		},
+		{
+			name: "template with return dict",
+			tmpl: `
+			{{- define "T1" }}{{ return ( dict.New "name" "Joe" ) }}{{ end -}}
+			{{- $result := tmpl.Exec "T1" -}}
+			Hello {{ $result.name -}}
+			`,
+			want:    "Hello Joe",
+			wantErr: false,
+		},
 	}
 
 	for _, tt := range tests {
