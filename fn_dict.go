@@ -84,3 +84,15 @@ func (ctx Dict) Keys(m map[any]any) ([]any, error) {
 	}
 	return keys, nil
 }
+
+// IsEmpty checks if a map is empty.
+//
+// Example:
+//
+//	{{ dict.IsEmpty (dict.New) }} // Output: true
+func (ctx Dict) IsEmpty(m map[any]any) (bool, error) {
+	if _, ok := ctx.allowedFunctionSet[funcs.DictIsEmpty]; !ok {
+		return false, &FuncNotAllowedError{Func: funcs.DictIsEmpty}
+	}
+	return len(m) == 0, nil
+}

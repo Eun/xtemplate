@@ -598,6 +598,43 @@ func (ctx Slice) Compact(s any) (any, error) {
 	return nil, ErrArgNotSlice
 }
 
+func (ctx Slice) IsEmpty(s any) (bool, error) {
+	if _, ok := ctx.allowedFunctionSet[funcs.SliceIsEmpty]; !ok {
+		return false, &FuncNotAllowedError{Func: funcs.SliceIsEmpty}
+	}
+	switch sl := s.(type) {
+	case []any:
+		return len(sl) == 0, nil
+	case []bool:
+		return len(sl) == 0, nil
+	case []float32:
+		return len(sl) == 0, nil
+	case []float64:
+		return len(sl) == 0, nil
+	case []string:
+		return len(sl) == 0, nil
+	case []int:
+		return len(sl) == 0, nil
+	case []int8:
+		return len(sl) == 0, nil
+	case []int16:
+		return len(sl) == 0, nil
+	case []int32:
+		return len(sl) == 0, nil
+	case []int64:
+		return len(sl) == 0, nil
+	case []uint8:
+		return len(sl) == 0, nil
+	case []uint16:
+		return len(sl) == 0, nil
+	case []uint32:
+		return len(sl) == 0, nil
+	case []uint64:
+		return len(sl) == 0, nil
+	}
+	return false, ErrArgNotSlice
+}
+
 func sortBool(sl []bool) {
 	slices.SortFunc(sl, func(a, b bool) int {
 		if a == b {

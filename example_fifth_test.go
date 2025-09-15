@@ -1,6 +1,7 @@
 package xtemplate_test
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/Eun/xtemplate"
@@ -10,15 +11,19 @@ import (
 func Example_fifth() {
 	tmpl := `
 {{- if not .user -}}
-{{ return "Error: No user provided" }}
+{{ error "No user provided" }}
 {{- end -}}
 Welcome, {{ .user.name }}!
 `
 
 	result, err := xtemplate.QuickExecute(tmpl, map[string]any{}, funcs.Safe)
 	if err != nil {
-		panic(err)
+		var e xtemplate.CustomError
+		if ok := errors.As(err, &e); ok {
+			fmt.Println("Error:", e.Message) // Output: Error: No user provided
+		} else {
+			panic(err)
+		}
 	}
 	fmt.Println(result)
-	// Output: Error: No user provided
 }

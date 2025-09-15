@@ -40,6 +40,15 @@ func (r ReturnError) Error() string {
 	return "return"
 }
 
+// CustomError represents a custom error with a message.
+type CustomError struct {
+	Message string
+}
+
+func (e CustomError) Error() string {
+	return e.Message
+}
+
 // AllowedFunctions is an interface that types can implement to provide a list of allowed functions.
 type AllowedFunctions interface {
 	Functions() []funcs.Func
@@ -53,6 +62,9 @@ func FuncMap(t *template.Template, allowedFunctions ...AllowedFunctions) templat
 	m := template.FuncMap{
 		"return": func(value any) (any, error) {
 			return nil, ReturnError{Value: value}
+		},
+		"error": func(msg string) (any, error) {
+			return nil, CustomError{Message: msg}
 		},
 	}
 

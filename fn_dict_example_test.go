@@ -44,6 +44,15 @@ func ExampleDict_HasValue_second() {
 	fmt.Println(s) // Output: false
 }
 
+func ExampleDict_IsEmpty() {
+	s, _ := xtemplate.QuickExecute(
+		`{{ dict.IsEmpty (dict.New) }}`,
+		nil,
+		funcs.All,
+	)
+	fmt.Println(s) // Output: true
+}
+
 func ExampleDict_Keys() {
 	s, _ := xtemplate.QuickExecute(
 		`{{ $dict := dict.New "name" "Frank" "age" 42 }}

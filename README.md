@@ -14,6 +14,7 @@ A secure Go template engine with a restricted set of functions for safe template
 - 🎯 **Fine-grained control**: Allow entire namespaces or individual functions
 - ⚡ **Quick execution**: Simple API for common use cases
 - 🔄 **Early return**: Special `return` function to short-circuit template execution
+- ⚠️ **Custom error**: Special `error` function to stop template execution and return an error
 - 📦 **Zero dependencies**: Built on Go's standard library
 
 ## Installation
@@ -96,18 +97,18 @@ func main()
 
 | Namespace  | Description               | Example Functions                                |
 |------------|---------------------------|--------------------------------------------------|
-| [strings](https://pkg.go.dev/github.com/Eun/xtemplate/Strings)  | String manipulation       | `ToLower`, `ToUpper`, `Replace`, `Split`, `Join` |
-| [conv](https://pkg.go.dev/github.com/Eun/xtemplate/Conv)     | Type conversions          | `ToString`, `ToInt`, `ToBool`, `ToFloat64`       |
-| [json](https://pkg.go.dev/github.com/Eun/xtemplate/Json)     | JSON operations           | `Marshal`, `Unmarshal`, `Valid`                  |
-| [filepath](https://pkg.go.dev/github.com/Eun/xtemplate/Filepath) | File path operations      | `Join`, `Dir`, `Base`, `Ext`, `Clean`            |
-| [path](https://pkg.go.dev/github.com/Eun/xtemplate/Path)     | URL path operations       | `Join`, `Dir`, `Base`, `Ext`, `Clean`            |
-| [dict](https://pkg.go.dev/github.com/Eun/xtemplate/Dict)     | Dictionary/map operations | `New`, `HasKey`, `HasValue`, `Keys`              |
-| [slice](https://pkg.go.dev/github.com/Eun/xtemplate/Slice)    | Slice operations          | `New`, `Sort`, `Reverse`, `Contains`             |
-| [url](https://pkg.go.dev/github.com/Eun/xtemplate/Url)      | URL operations            | `JoinPath`, `QueryEscape`                        |
-| [os](https://pkg.go.dev/github.com/Eun/xtemplate/Os)       | OS operations             | `Getenv`, `Hostname`, `UserHomeDir`              |
-| [tmpl](https://pkg.go.dev/github.com/Eun/xtemplate/Tmpl)     | Template operations       | `Exec`                                           |
-| [regexp](https://pkg.go.dev/github.com/Eun/xtemplate/Regexp)   | Regular expressions       | `Match`, `ReplaceAll`, `Split`                   |
-| [cmp](https://pkg.go.dev/github.com/Eun/xtemplate/Cmp)      | Comparison operations     | `Or`                                             |
+| [strings](https://pkg.go.dev/github.com/Eun/xtemplate#Strings)  | String manipulation       | `ToLower`, `ToUpper`, `Replace`, `Split`, `Join` |
+| [conv](https://pkg.go.dev/github.com/Eun/xtemplate#Conv)     | Type conversions          | `ToString`, `ToInt`, `ToBool`, `ToFloat64`       |
+| [json](https://pkg.go.dev/github.com/Eun/xtemplate#Json)     | JSON operations           | `Marshal`, `Unmarshal`, `Valid`                  |
+| [filepath](https://pkg.go.dev/github.com/Eun/xtemplate#Filepath) | File path operations      | `Join`, `Dir`, `Base`, `Ext`, `Clean`            |
+| [path](https://pkg.go.dev/github.com/Eun/xtemplate#Path)     | URL path operations       | `Join`, `Dir`, `Base`, `Ext`, `Clean`            |
+| [dict](https://pkg.go.dev/github.com/Eun/xtemplate#Dict)     | Dictionary/map operations | `New`, `HasKey`, `HasValue`, `Keys`              |
+| [slice](https://pkg.go.dev/github.com/Eun/xtemplate#Slice)    | Slice operations          | `New`, `Sort`, `Reverse`, `Contains`             |
+| [url](https://pkg.go.dev/github.com/Eun/xtemplate#Url)      | URL operations            | `JoinPath`, `QueryEscape`                        |
+| [os](https://pkg.go.dev/github.com/Eun/xtemplate#Os)       | OS operations             | `Getenv`, `Hostname`, `UserHomeDir`              |
+| [tmpl](https://pkg.go.dev/github.com/Eun/xtemplate#Tmpl)     | Template operations       | `Exec`                                           |
+| [regexp](https://pkg.go.dev/github.com/Eun/xtemplate#Regexp)   | Regular expressions       | `Match`, `ReplaceAll`, `Split`                   |
+| [cmp](https://pkg.go.dev/github.com/Eun/xtemplate#Cmp)      | Comparison operations     | `Or`                                             |
 
 ## Function Collections
 
@@ -226,6 +227,42 @@ Users:
 }
 ```
 
+### Custom Error Example
+
+Use the special `error` function to exit template execution early with an error:
+
+```go
+package main
+
+import (
+	"errors"
+	"fmt"
+
+	"github.com/Eun/xtemplate"
+	"github.com/Eun/xtemplate/funcs"
+)
+
+func main()
+	tmpl := `
+{{- if not .user -}}
+{{ error "No user provided" }}
+{{- end -}}
+Welcome, {{ .user.name }}!
+`
+
+	result, err := xtemplate.QuickExecute(tmpl, map[string]any{}, funcs.Safe)
+	if err != nil {
+		var e xtemplate.CustomError
+		if ok := errors.As(err, &e); ok {
+			fmt.Println("Error:", e.Message) // Output: Error: No user provided
+		} else {
+			panic(err)
+		}
+	}
+	fmt.Println(result)
+}
+```
+
 ### Template Inclusion
 
 Define and include sub-templates:
@@ -242,10 +279,13 @@ import (
 
 func main()
 	tmpl := `
-{{- if not .user -}}
-{{ return "Error: No user provided" }}
+{{- define "getName" -}}
+	{{- if not .user -}}
+		{{ return "Anonymous" }}
+	{{- end -}}
+	{{- return .user.name -}}
 {{- end -}}
-Welcome, {{ .user.name }}!
+Welcome, {{ tmpl.Exec "getName" . }}!
 `
 
 	result, err := xtemplate.QuickExecute(tmpl, map[string]any{}, funcs.Safe)
@@ -253,7 +293,7 @@ Welcome, {{ .user.name }}!
 		panic(err)
 	}
 	fmt.Println(result)
-	// Output: Error: No user provided
+	// Output: Welcome, Anonymous!
 }
 ```
 

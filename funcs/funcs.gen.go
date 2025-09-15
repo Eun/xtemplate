@@ -35,6 +35,7 @@ var (
 	ConvToUints = Func { "conv", "ToUints" }
 	DictHasKey = Func { "dict", "HasKey" }
 	DictHasValue = Func { "dict", "HasValue" }
+	DictIsEmpty = Func { "dict", "IsEmpty" }
 	DictKeys = Func { "dict", "Keys" }
 	DictNew = Func { "dict", "New" }
 	FilePathAbs = Func { "filepath", "Abs" }
@@ -42,6 +43,7 @@ var (
 	FilePathClean = Func { "filepath", "Clean" }
 	FilePathDir = Func { "filepath", "Dir" }
 	FilePathExt = Func { "filepath", "Ext" }
+	FilePathFromSlash = Func { "filepath", "FromSlash" }
 	FilePathJoin = Func { "filepath", "Join" }
 	FilePathRel = Func { "filepath", "Rel" }
 	JSONCompact = Func { "json", "Compact" }
@@ -121,6 +123,7 @@ var (
 	SliceAppend = Func { "slice", "Append" }
 	SliceCompact = Func { "slice", "Compact" }
 	SliceContains = Func { "slice", "Contains" }
+	SliceIsEmpty = Func { "slice", "IsEmpty" }
 	SliceLen = Func { "slice", "Len" }
 	SliceNew = Func { "slice", "New" }
 	SliceNewBools = Func { "slice", "NewBools" }
@@ -217,6 +220,7 @@ var (
 	Dict = Funcs {
 		DictHasKey,
 		DictHasValue,
+		DictIsEmpty,
 		DictKeys,
 		DictNew,
 	}
@@ -227,6 +231,7 @@ var (
 		FilePathClean,
 		FilePathDir,
 		FilePathExt,
+		FilePathFromSlash,
 		FilePathJoin,
 		FilePathRel,
 	}
@@ -321,6 +326,7 @@ var (
 		SliceAppend,
 		SliceCompact,
 		SliceContains,
+		SliceIsEmpty,
 		SliceLen,
 		SliceNew,
 		SliceNewBools,
@@ -419,6 +425,7 @@ var (
 		ConvToUints,
 		DictHasKey,
 		DictHasValue,
+		DictIsEmpty,
 		DictKeys,
 		DictNew,
 		FilePathAbs,
@@ -426,6 +433,7 @@ var (
 		FilePathClean,
 		FilePathDir,
 		FilePathExt,
+		FilePathFromSlash,
 		FilePathJoin,
 		FilePathRel,
 		JSONCompact,
@@ -505,6 +513,7 @@ var (
 		SliceAppend,
 		SliceCompact,
 		SliceContains,
+		SliceIsEmpty,
 		SliceLen,
 		SliceNew,
 		SliceNewBools,
@@ -599,6 +608,7 @@ var NamespacesAndTheirFunctions = map[string]map[string]struct{}{
 	"dict": {
 		"HasKey": {},
 		"HasValue": {},
+		"IsEmpty": {},
 		"Keys": {},
 		"New": {},
 	},
@@ -608,6 +618,7 @@ var NamespacesAndTheirFunctions = map[string]map[string]struct{}{
 		"Clean": {},
 		"Dir": {},
 		"Ext": {},
+		"FromSlash": {},
 		"Join": {},
 		"Rel": {},
 	},
@@ -697,6 +708,7 @@ var NamespacesAndTheirFunctions = map[string]map[string]struct{}{
 		"Append": {},
 		"Compact": {},
 		"Contains": {},
+		"IsEmpty": {},
 		"Len": {},
 		"New": {},
 		"NewBools": {},

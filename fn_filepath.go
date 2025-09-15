@@ -14,7 +14,7 @@ type FilePath rootContext
 //
 // Example:
 //
-//	{{ filepath.Dir "/foo/bar/baz.js" }} // Output: /foo/bar
+//	{{ filepath.Dir "/foo/bar/baz.js" }}
 func (ctx FilePath) Dir(s string) (string, error) {
 	if _, ok := ctx.allowedFunctionSet[funcs.FilePathDir]; !ok {
 		return "", &FuncNotAllowedError{Func: funcs.FilePathDir}
@@ -27,7 +27,7 @@ func (ctx FilePath) Dir(s string) (string, error) {
 //
 // Example:
 //
-//	{{ filepath.Base "/foo/bar/baz.js" }} // Output: baz.js
+//	{{ filepath.Base "/foo/bar/baz.js" }}
 func (ctx FilePath) Base(s string) (string, error) {
 	if _, ok := ctx.allowedFunctionSet[funcs.FilePathBase]; !ok {
 		return "", &FuncNotAllowedError{Func: funcs.FilePathBase}
@@ -40,7 +40,7 @@ func (ctx FilePath) Base(s string) (string, error) {
 //
 // Example:
 //
-//	{{ filepath.Join "foo" "bar" "baz" }} // Output: foo/bar/baz
+//	{{ filepath.Join "foo" "bar" "baz" }}
 func (ctx FilePath) Join(s ...string) (string, error) {
 	if _, ok := ctx.allowedFunctionSet[funcs.FilePathJoin]; !ok {
 		return "", &FuncNotAllowedError{Func: funcs.FilePathJoin}
@@ -53,7 +53,7 @@ func (ctx FilePath) Join(s ...string) (string, error) {
 //
 // Example:
 //
-//	{{ filepath.Clean "/foo//bar/../baz" }} // Output: /foo/baz
+//	{{ filepath.Clean "/foo//bar/../baz" }}
 func (ctx FilePath) Clean(s string) (string, error) {
 	if _, ok := ctx.allowedFunctionSet[funcs.FilePathClean]; !ok {
 		return "", &FuncNotAllowedError{Func: funcs.FilePathClean}
@@ -66,7 +66,7 @@ func (ctx FilePath) Clean(s string) (string, error) {
 //
 // Example:
 //
-//	{{ filepath.Ext "/foo/bar/baz.js" }} // Output: .js
+//	{{ filepath.Ext "/foo/bar/baz.js" }}
 func (ctx FilePath) Ext(s string) (string, error) {
 	if _, ok := ctx.allowedFunctionSet[funcs.FilePathExt]; !ok {
 		return "", &FuncNotAllowedError{Func: funcs.FilePathExt}
@@ -92,10 +92,23 @@ func (ctx FilePath) Abs(s string) (string, error) {
 //
 // Example:
 //
-//	{{ filepath.Rel "/a" "/a/b/c" }} // Output: b/c
+//	{{ filepath.Rel "/a" "/a/b/c" }}
 func (ctx FilePath) Rel(basepath, targetpath string) (string, error) {
 	if _, ok := ctx.allowedFunctionSet[funcs.FilePathRel]; !ok {
 		return "", &FuncNotAllowedError{Func: funcs.FilePathRel}
 	}
 	return filepath.Rel(basepath, targetpath)
+}
+
+// FromSlash returns the result of replacing each slash ('/') character in path with a separator character.
+// Multiple slashes are replaced by multiple separators. The result is not Cleaned.
+//
+// Example:
+//
+//	{{ filepath.FromSlash "foo/bar/baz" }}
+func (ctx FilePath) FromSlash(path string) (string, error) {
+	if _, ok := ctx.allowedFunctionSet[funcs.FilePathFromSlash]; !ok {
+		return "", &FuncNotAllowedError{Func: funcs.FilePathFromSlash}
+	}
+	return filepath.FromSlash(path), nil
 }
