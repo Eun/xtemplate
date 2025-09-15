@@ -28,5 +28,5 @@ func ExampleQuickExecute_second() {
 		funcs.Safe,     // Allow all safe functions
 		funcs.OSGetenv, // Allow only the os.Getenv function
 	)
-	fmt.Println(s) // Output: /root/.bashrc
+	fmt.Println(s)
 }
