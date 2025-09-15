@@ -598,6 +598,14 @@ func (ctx Slice) Compact(s any) (any, error) {
 	return nil, ErrArgNotSlice
 }
 
+// IsEmpty checks if the provided slice is empty.
+//
+// Example:
+//
+//	{{ $sl := slice.NewStrings }}
+//	{{ slice.IsEmpty $sl }} // Output: true
+//
+//nolint:cyclop // cannot be simplified
 func (ctx Slice) IsEmpty(s any) (bool, error) {
 	if _, ok := ctx.allowedFunctionSet[funcs.SliceIsEmpty]; !ok {
 		return false, &FuncNotAllowedError{Func: funcs.SliceIsEmpty}

@@ -37,6 +37,16 @@ func ExampleSlice_Contains() {
 	fmt.Println(s) // Output: true
 }
 
+func ExampleSlice_IsEmpty() {
+	s, _ := xtemplate.QuickExecute(
+		`{{ $sl := slice.NewStrings }}
+{{ slice.IsEmpty $sl }}`,
+		nil,
+		funcs.All,
+	)
+	fmt.Println(s) // Output: true
+}
+
 func ExampleSlice_Len() {
 	s, _ := xtemplate.QuickExecute(
 		`{{ $sl := slice.NewStrings "Hello" "World" }}
