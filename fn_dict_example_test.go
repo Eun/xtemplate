@@ -64,6 +64,15 @@ func ExampleDict_Keys() {
 	fmt.Println(s) // Output: [age name]
 }
 
+func ExampleDict_Len() {
+	s, _ := xtemplate.QuickExecute(
+		`{{ dict.Len (dict.New) }}`,
+		nil,
+		funcs.All,
+	)
+	fmt.Println(s) // Output: 0
+}
+
 func ExampleDict_New() {
 	s, _ := xtemplate.QuickExecute(
 		`{{ dict.New "name" "Frank" "age" 42 }}`,

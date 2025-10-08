@@ -37,6 +37,7 @@ var (
 	DictHasValue = Func { "dict", "HasValue" }
 	DictIsEmpty = Func { "dict", "IsEmpty" }
 	DictKeys = Func { "dict", "Keys" }
+	DictLen = Func { "dict", "Len" }
 	DictNew = Func { "dict", "New" }
 	FilePathAbs = Func { "filepath", "Abs" }
 	FilePathBase = Func { "filepath", "Base" }
@@ -223,6 +224,7 @@ var (
 		DictHasValue,
 		DictIsEmpty,
 		DictKeys,
+		DictLen,
 		DictNew,
 	}
 
@@ -429,6 +431,7 @@ var (
 		DictHasValue,
 		DictIsEmpty,
 		DictKeys,
+		DictLen,
 		DictNew,
 		FilePathAbs,
 		FilePathBase,
@@ -613,6 +616,7 @@ var NamespacesAndTheirFunctions = map[string]map[string]struct{}{
 		"HasValue": {},
 		"IsEmpty": {},
 		"Keys": {},
+		"Len": {},
 		"New": {},
 	},
 	"filepath": {
