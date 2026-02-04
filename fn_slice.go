@@ -62,6 +62,45 @@ func (ctx Slice) NewInts(vals ...any) ([]int, error) {
 	return toInts[int](vals, math.MinInt, math.MaxInt)
 }
 
+// NewInt8s creates an int8 slice from the provided values.
+//
+// Example:
+//
+//	{{ slice.NewInt8s 1 2 }}
+func (ctx Slice) NewInt8s(vals ...any) ([]int8, error) {
+	if _, ok := ctx.allowedFunctionSet[funcs.SliceNewInt8s]; !ok {
+		return nil, &FuncNotAllowedError{Func: funcs.SliceNewInt8s}
+	}
+
+	return toInts[int8](vals, math.MinInt8, math.MaxInt8)
+}
+
+// NewInt16s creates an int16 slice from the provided values.
+//
+// Example:
+//
+//	{{ slice.NewInt16s 1 2 }}
+func (ctx Slice) NewInt16s(vals ...any) ([]int16, error) {
+	if _, ok := ctx.allowedFunctionSet[funcs.SliceNewInt16s]; !ok {
+		return nil, &FuncNotAllowedError{Func: funcs.SliceNewInt16s}
+	}
+
+	return toInts[int16](vals, math.MinInt16, math.MaxInt16)
+}
+
+// NewInt32s creates an int32 slice from the provided values.
+//
+// Example:
+//
+//	{{ slice.NewInt32s 1 2 }}
+func (ctx Slice) NewInt32s(vals ...any) ([]int32, error) {
+	if _, ok := ctx.allowedFunctionSet[funcs.SliceNewInt32s]; !ok {
+		return nil, &FuncNotAllowedError{Func: funcs.SliceNewInt32s}
+	}
+
+	return toInts[int32](vals, math.MinInt32, math.MaxInt32)
+}
+
 // NewInt64s creates an int64 slice from the provided values.
 //
 // Example:
@@ -73,6 +112,58 @@ func (ctx Slice) NewInt64s(vals ...any) ([]int64, error) {
 	}
 
 	return toInt64s(vals)
+}
+
+// NewUint8s creates an uint8 slice from the provided values.
+//
+// Example:
+//
+//	{{ slice.NewUint8s 1 2 }}
+func (ctx Slice) NewUint8s(vals ...any) ([]uint8, error) {
+	if _, ok := ctx.allowedFunctionSet[funcs.SliceNewUint8s]; !ok {
+		return nil, &FuncNotAllowedError{Func: funcs.SliceNewUint8s}
+	}
+
+	return toUints[uint8](vals, math.MaxUint8)
+}
+
+// NewUint16s creates an uint16 slice from the provided values.
+//
+// Example:
+//
+//	{{ slice.NewUint16s 1 2 }}
+func (ctx Slice) NewUint16s(vals ...any) ([]uint16, error) {
+	if _, ok := ctx.allowedFunctionSet[funcs.SliceNewInt16s]; !ok {
+		return nil, &FuncNotAllowedError{Func: funcs.SliceNewInt16s}
+	}
+
+	return toUints[uint16](vals, math.MaxUint16)
+}
+
+// NewUint32s creates an uint64 slice from the provided values.
+//
+// Example:
+//
+//	{{ slice.NewUint32s 1 2 }}
+func (ctx Slice) NewUint32s(vals ...any) ([]uint32, error) {
+	if _, ok := ctx.allowedFunctionSet[funcs.SliceNewInt32s]; !ok {
+		return nil, &FuncNotAllowedError{Func: funcs.SliceNewInt32s}
+	}
+
+	return toUints[uint32](vals, math.MaxUint32)
+}
+
+// NewUint64s creates an uint64 slice from the provided values.
+//
+// Example:
+//
+//	{{ slice.NewUint64s 1 2 }}
+func (ctx Slice) NewUint64s(vals ...any) ([]uint64, error) {
+	if _, ok := ctx.allowedFunctionSet[funcs.SliceNewUint64s]; !ok {
+		return nil, &FuncNotAllowedError{Func: funcs.SliceNewUint64s}
+	}
+
+	return toUint64s(vals)
 }
 
 // NewFloat64s creates an int64 slice from the provided values.
