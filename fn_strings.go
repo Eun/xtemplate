@@ -579,11 +579,15 @@ func (ctx Strings) FromByteSlice(in []byte) (string, error) {
 }
 
 // Substring returns a portion of a string specified by the offset and length parameters.
-// If offset is non-negative, the returned string will start at the offset'th position in string, counting from zero. For instance, in the string 'abcdef', the character at position 0 is 'a', the character at position 2 is 'c', and so forth.
+// If offset is non-negative, the returned string will start at the offset'th position in string, counting from zero.
+// For instance, in the string 'abcdef', the character at position 0 is 'a',
+// the character at position 2 is 'c', and so forth.
 // If offset is negative, the returned string will start at the offset'th character from the end of string.
 // If string is less than offset characters long, an empty string will be returned.
-// If length is given and is positive, the string returned will contain at most length characters beginning from offset (depending on the length of string).
-// If length is given and is negative, then that many characters will be omitted from the end of string. If offset denotes the position of this truncation or beyond, an empty string will be returned.
+// If length is given and is positive, the string returned will contain at most length characters beginning from offset
+// (depending on the length of string).
+// If length is given and is negative, then that many characters will be omitted from the end of string.
+// If offset denotes the position of this truncation or beyond, an empty string will be returned.
 // If length is given and is 0, an empty string will be returned.
 // If length is omitted or null, the substring starting from offset until the end of the string will be returned.
 //
@@ -631,27 +635,23 @@ func (ctx Strings) Substring(s string, start int, end ...int) (string, error) {
 		return "", nil
 	}
 
-	var substr string
-	if len(end) > 0 {
-		lengthParam := end[0]
-		if lengthParam > 0 {
-			endIndex := start + lengthParam
-			if endIndex > length {
-				endIndex = length
-			}
-			substr = string(runes[start:endIndex])
-		} else if lengthParam < 0 {
-			endIndex := length + lengthParam
-			if endIndex < start {
-				return "", nil
-			}
-			substr = string(runes[start:endIndex])
-		} else {
+	if len(end) == 0 {
+		return string(runes[start:]), nil
+	}
+	lengthParam := end[0]
+	if lengthParam > 0 {
+		endIndex := start + lengthParam
+		if endIndex > length {
+			endIndex = length
+		}
+		return string(runes[start:endIndex]), nil
+	}
+	if lengthParam < 0 {
+		endIndex := length + lengthParam
+		if endIndex < start {
 			return "", nil
 		}
-	} else {
-		substr = string(runes[start:])
+		return string(runes[start:endIndex]), nil
 	}
-
-	return substr, nil
+	return "", nil
 }
