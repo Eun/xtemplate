@@ -553,3 +553,105 @@ func (ctx Strings) TrimSuffix(s, prefix string) (string, error) {
 	}
 	return strings.TrimSuffix(s, prefix), nil
 }
+
+// ToByteSlice converts a string to a byte slice.
+//
+// Example:
+//
+//	{{ strings.ToByteSlice "Hello World" }} // Output: [72 101 108 108 111 32 87 111 114 108 100]
+func (ctx Strings) ToByteSlice(in string) ([]byte, error) {
+	if _, ok := ctx.allowedFunctionSet[funcs.StringsToByteSlice]; !ok {
+		return nil, &FuncNotAllowedError{Func: funcs.StringsToByteSlice}
+	}
+	return []byte(in), nil
+}
+
+// FromByteSlice converts a string to a byte slice.
+//
+// Example:
+//
+//	{{ strings.FromByteSlice ( slice.NewUint8s 72 101 108 108 111 ) }} // Output: Hello
+func (ctx Strings) FromByteSlice(in []byte) (string, error) {
+	if _, ok := ctx.allowedFunctionSet[funcs.StringsFromByteSlice]; !ok {
+		return "", &FuncNotAllowedError{Func: funcs.StringsFromByteSlice}
+	}
+	return string(in), nil
+}
+
+// Substring returns a portion of a string specified by the offset and length parameters.
+// If offset is non-negative, the returned string will start at the offset'th position in string, counting from zero.
+// For instance, in the string 'abcdef', the character at position 0 is 'a',
+// the character at position 2 is 'c', and so forth.
+// If offset is negative, the returned string will start at the offset'th character from the end of string.
+// If string is less than offset characters long, an empty string will be returned.
+// If length is given and is positive, the string returned will contain at most length characters beginning from offset
+// (depending on the length of string).
+// If length is given and is negative, then that many characters will be omitted from the end of string.
+// If offset denotes the position of this truncation or beyond, an empty string will be returned.
+// If length is given and is 0, an empty string will be returned.
+// If length is omitted or null, the substring starting from offset until the end of the string will be returned.
+//
+// Example 1:
+//
+//	{{ strings.Substring "abcdef" -1 }} // Output: f
+//
+// Example 2:
+//
+//	{{ strings.Substring "abcdef" -2 }} // Output: ef
+//
+// Example 3:
+//
+//	{{ strings.Substring "abcdef" -3 1 }} // Output: d
+//
+// Example 4:
+//
+//	{{ strings.Substring "abcdef" 0 -1 }} // Output: abcde
+//
+// Example 5:
+//
+//	{{ strings.Substring "abcdef" 2 -1 }} // Output: cde
+//
+// Example 6:
+//
+//	{{ strings.Substring "abcdef" 4 -4 }} // Output:
+//
+// Example 7:
+//
+//	{{ strings.Substring "abcdef" -3 -1 }} // Output: de
+func (ctx Strings) Substring(s string, start int, end ...int) (string, error) {
+	if _, ok := ctx.allowedFunctionSet[funcs.StringsSubstring]; !ok {
+		return "", &FuncNotAllowedError{Func: funcs.StringsSubstring}
+	}
+	runes := []rune(s)
+	length := len(runes)
+
+	if start < 0 {
+		start = length + start
+	}
+	if start < 0 {
+		start = 0
+	}
+	if start > length {
+		return "", nil
+	}
+
+	if len(end) == 0 {
+		return string(runes[start:]), nil
+	}
+	lengthParam := end[0]
+	if lengthParam > 0 {
+		endIndex := start + lengthParam
+		if endIndex > length {
+			endIndex = length
+		}
+		return string(runes[start:endIndex]), nil
+	}
+	if lengthParam < 0 {
+		endIndex := length + lengthParam
+		if endIndex < start {
+			return "", nil
+		}
+		return string(runes[start:endIndex]), nil
+	}
+	return "", nil
+}

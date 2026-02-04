@@ -129,9 +129,16 @@ var (
 	SliceNew = Func { "slice", "New" }
 	SliceNewBools = Func { "slice", "NewBools" }
 	SliceNewFloat64s = Func { "slice", "NewFloat64s" }
+	SliceNewInt16s = Func { "slice", "NewInt16s" }
+	SliceNewInt32s = Func { "slice", "NewInt32s" }
 	SliceNewInt64s = Func { "slice", "NewInt64s" }
+	SliceNewInt8s = Func { "slice", "NewInt8s" }
 	SliceNewInts = Func { "slice", "NewInts" }
 	SliceNewStrings = Func { "slice", "NewStrings" }
+	SliceNewUint16s = Func { "slice", "NewUint16s" }
+	SliceNewUint32s = Func { "slice", "NewUint32s" }
+	SliceNewUint64s = Func { "slice", "NewUint64s" }
+	SliceNewUint8s = Func { "slice", "NewUint8s" }
 	SlicePrepend = Func { "slice", "Prepend" }
 	SliceReverse = Func { "slice", "Reverse" }
 	SliceSort = Func { "slice", "Sort" }
@@ -147,6 +154,7 @@ var (
 	StringsEqual = Func { "strings", "Equal" }
 	StringsEqualFold = Func { "strings", "EqualFold" }
 	StringsFields = Func { "strings", "Fields" }
+	StringsFromByteSlice = Func { "strings", "FromByteSlice" }
 	StringsHasPrefix = Func { "strings", "HasPrefix" }
 	StringsHasSuffix = Func { "strings", "HasSuffix" }
 	StringsIndex = Func { "strings", "Index" }
@@ -164,6 +172,8 @@ var (
 	StringsSplitAfter = Func { "strings", "SplitAfter" }
 	StringsSplitAfterN = Func { "strings", "SplitAfterN" }
 	StringsSplitN = Func { "strings", "SplitN" }
+	StringsSubstring = Func { "strings", "Substring" }
+	StringsToByteSlice = Func { "strings", "ToByteSlice" }
 	StringsToLower = Func { "strings", "ToLower" }
 	StringsToTitle = Func { "strings", "ToTitle" }
 	StringsToUpper = Func { "strings", "ToUpper" }
@@ -333,9 +343,16 @@ var (
 		SliceNew,
 		SliceNewBools,
 		SliceNewFloat64s,
+		SliceNewInt16s,
+		SliceNewInt32s,
 		SliceNewInt64s,
+		SliceNewInt8s,
 		SliceNewInts,
 		SliceNewStrings,
+		SliceNewUint16s,
+		SliceNewUint32s,
+		SliceNewUint64s,
+		SliceNewUint8s,
 		SlicePrepend,
 		SliceReverse,
 		SliceSort,
@@ -354,6 +371,7 @@ var (
 		StringsEqual,
 		StringsEqualFold,
 		StringsFields,
+		StringsFromByteSlice,
 		StringsHasPrefix,
 		StringsHasSuffix,
 		StringsIndex,
@@ -371,6 +389,8 @@ var (
 		StringsSplitAfter,
 		StringsSplitAfterN,
 		StringsSplitN,
+		StringsSubstring,
+		StringsToByteSlice,
 		StringsToLower,
 		StringsToTitle,
 		StringsToUpper,
@@ -521,9 +541,16 @@ var (
 		SliceNew,
 		SliceNewBools,
 		SliceNewFloat64s,
+		SliceNewInt16s,
+		SliceNewInt32s,
 		SliceNewInt64s,
+		SliceNewInt8s,
 		SliceNewInts,
 		SliceNewStrings,
+		SliceNewUint16s,
+		SliceNewUint32s,
+		SliceNewUint64s,
+		SliceNewUint8s,
 		SlicePrepend,
 		SliceReverse,
 		SliceSort,
@@ -539,6 +566,7 @@ var (
 		StringsEqual,
 		StringsEqualFold,
 		StringsFields,
+		StringsFromByteSlice,
 		StringsHasPrefix,
 		StringsHasSuffix,
 		StringsIndex,
@@ -556,6 +584,8 @@ var (
 		StringsSplitAfter,
 		StringsSplitAfterN,
 		StringsSplitN,
+		StringsSubstring,
+		StringsToByteSlice,
 		StringsToLower,
 		StringsToTitle,
 		StringsToUpper,
@@ -717,9 +747,16 @@ var NamespacesAndTheirFunctions = map[string]map[string]struct{}{
 		"New": {},
 		"NewBools": {},
 		"NewFloat64s": {},
+		"NewInt16s": {},
+		"NewInt32s": {},
 		"NewInt64s": {},
+		"NewInt8s": {},
 		"NewInts": {},
 		"NewStrings": {},
+		"NewUint16s": {},
+		"NewUint32s": {},
+		"NewUint64s": {},
+		"NewUint8s": {},
 		"Prepend": {},
 		"Reverse": {},
 		"Sort": {},
@@ -737,6 +774,7 @@ var NamespacesAndTheirFunctions = map[string]map[string]struct{}{
 		"Equal": {},
 		"EqualFold": {},
 		"Fields": {},
+		"FromByteSlice": {},
 		"HasPrefix": {},
 		"HasSuffix": {},
 		"Index": {},
@@ -754,6 +792,8 @@ var NamespacesAndTheirFunctions = map[string]map[string]struct{}{
 		"SplitAfter": {},
 		"SplitAfterN": {},
 		"SplitN": {},
+		"Substring": {},
+		"ToByteSlice": {},
 		"ToLower": {},
 		"ToTitle": {},
 		"ToUpper": {},

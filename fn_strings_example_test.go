@@ -170,6 +170,15 @@ func ExampleStrings_Fields() {
 	fmt.Println(s) // Output: [hello world]
 }
 
+func ExampleStrings_FromByteSlice() {
+	s, _ := xtemplate.QuickExecute(
+		`{{ strings.FromByteSlice ( slice.NewUint8s 72 101 108 108 111 ) }}`,
+		nil,
+		funcs.All,
+	)
+	fmt.Println(s) // Output: Hello
+}
+
 func ExampleStrings_HasPrefix() {
 	s, _ := xtemplate.QuickExecute(
 		`{{ strings.HasPrefix "Hello, World!" "Hello" }}`,
@@ -321,6 +330,69 @@ func ExampleStrings_SplitN() {
 		funcs.All,
 	)
 	fmt.Println(s) // Output: [apple banana,cherry]
+}
+
+func ExampleStrings_Substring() {
+	s, _ := xtemplate.QuickExecute(
+		`{{ strings.Substring "abcdef" -1 }}`,
+		nil,
+		funcs.All,
+	)
+	fmt.Println(s) // Output: f
+}
+
+func ExampleStrings_Substring_second() {
+	s, _ := xtemplate.QuickExecute(
+		`{{ strings.Substring "abcdef" -2 }}`,
+		nil,
+		funcs.All,
+	)
+	fmt.Println(s) // Output: ef
+}
+
+func ExampleStrings_Substring_third() {
+	s, _ := xtemplate.QuickExecute(
+		`{{ strings.Substring "abcdef" -3 1 }}`,
+		nil,
+		funcs.All,
+	)
+	fmt.Println(s) // Output: d
+}
+
+func ExampleStrings_Substring_fourth() {
+	s, _ := xtemplate.QuickExecute(
+		`{{ strings.Substring "abcdef" 0 -1 }}`,
+		nil,
+		funcs.All,
+	)
+	fmt.Println(s) // Output: abcde
+}
+
+func ExampleStrings_Substring_fifth() {
+	s, _ := xtemplate.QuickExecute(
+		`{{ strings.Substring "abcdef" 2 -1 }}`,
+		nil,
+		funcs.All,
+	)
+	fmt.Println(s) // Output: cde
+}
+
+func ExampleStrings_Substring_sixth() {
+	s, _ := xtemplate.QuickExecute(
+		`{{ strings.Substring "abcdef" -3 -1 }}`,
+		nil,
+		funcs.All,
+	)
+	fmt.Println(s) // Output: de
+}
+
+func ExampleStrings_ToByteSlice() {
+	s, _ := xtemplate.QuickExecute(
+		`{{ strings.ToByteSlice "Hello World" }}`,
+		nil,
+		funcs.All,
+	)
+	fmt.Println(s) // Output: [72 101 108 108 111 32 87 111 114 108 100]
 }
 
 func ExampleStrings_ToLower() {
